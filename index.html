@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ballpark Finder | 首都圏・山梨の野球場検索</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#" aria-label="Ballpark Finder ホーム">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Ballpark Finder</span>
+        </a>
+        <nav class="nav-links" aria-label="主要ナビゲーション">
+          <a href="#search">検索</a>
+          <a href="#parks">球場一覧</a>
+          <a href="#guide">選び方</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-bg" aria-hidden="true">
+          <div class="field-lines"></div>
+          <div class="scoreboard">TOKYO KANAGAWA SAITAMA YAMANASHI</div>
+        </div>
+        <div class="hero-content">
+          <div class="hero-layout">
+            <div class="hero-copy">
+              <p class="eyebrow">軟式・硬式対応球場をすばやく比較</p>
+              <h1 id="hero-title">東京・神奈川・埼玉・山梨の野球場検索</h1>
+              <p class="lead">
+                エリア、対応種別、ナイター、駐車場、駅近などの条件から、練習・大会・遠征に合う球場を探せます。
+              </p>
+              <a class="primary-action" href="#search">条件を選ぶ</a>
+            </div>
+
+            <aside class="area-map" aria-label="検索対象エリアの地図">
+              <div class="map-title">
+                <div>
+                  <span>検索エリア</span>
+                  <strong>1都3県</strong>
+                </div>
+                <p><span id="mapTotal">0</span>件掲載</p>
+              </div>
+              <div class="map-board">
+                <div class="map-water" aria-hidden="true"></div>
+                <div class="map-route route-1" aria-hidden="true"></div>
+                <div class="map-route route-2" aria-hidden="true"></div>
+                <button class="map-region saitama" type="button" data-map-area="埼玉">
+                  <span>埼玉</span>
+                  <small data-count-for="埼玉">0件</small>
+                </button>
+                <button class="map-region tokyo" type="button" data-map-area="東京">
+                  <span>東京</span>
+                  <small data-count-for="東京">0件</small>
+                </button>
+                <button class="map-region kanagawa" type="button" data-map-area="神奈川">
+                  <span>神奈川</span>
+                  <small data-count-for="神奈川">0件</small>
+                </button>
+                <button class="map-region yamanashi" type="button" data-map-area="山梨">
+                  <span>山梨</span>
+                  <small data-count-for="山梨">0件</small>
+                </button>
+                <span class="map-pin pin-tokyo" aria-hidden="true"></span>
+                <span class="map-pin pin-kanagawa" aria-hidden="true"></span>
+                <span class="map-pin pin-saitama" aria-hidden="true"></span>
+                <span class="map-pin pin-yamanashi" aria-hidden="true"></span>
+                <span class="map-label label-kanto" aria-hidden="true">KANTO + YAMANASHI</span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="search-panel" id="search" aria-labelledby="search-title">
+        <div class="section-heading">
+          <p class="eyebrow">Search</p>
+          <h2 id="search-title">条件で絞り込み</h2>
+        </div>
+
+        <form class="filters" id="filters">
+          <label class="field">
+            <span>キーワード</span>
+            <input id="keyword" type="search" placeholder="球場名・市区町村・特徴" autocomplete="off" />
+          </label>
+
+          <label class="field">
+            <span>エリア</span>
+            <select id="area">
+              <option value="all">すべて</option>
+              <option value="東京">東京</option>
+              <option value="神奈川">神奈川</option>
+              <option value="埼玉">埼玉</option>
+              <option value="山梨">山梨</option>
+            </select>
+          </label>
+
+          <fieldset class="field type-field">
+            <legend>対応種別</legend>
+            <label><input type="checkbox" name="type" value="軟式" checked />軟式</label>
+            <label><input type="checkbox" name="type" value="硬式" checked />硬式</label>
+          </fieldset>
+
+          <fieldset class="field feature-field">
+            <legend>設備・条件</legend>
+            <label><input type="checkbox" name="feature" value="ナイター" />ナイター</label>
+            <label><input type="checkbox" name="feature" value="駐車場" />駐車場</label>
+            <label><input type="checkbox" name="feature" value="駅近" />駅近</label>
+          </fieldset>
+
+          <button class="reset-button" type="reset">リセット</button>
+        </form>
+      </section>
+
+      <section class="results-section" id="parks" aria-labelledby="parks-title">
+        <div class="results-top">
+          <div>
+            <p class="eyebrow">Results</p>
+            <h2 id="parks-title">球場一覧</h2>
+          </div>
+          <p class="result-count" id="resultCount" aria-live="polite"></p>
+        </div>
+        <div class="cards" id="cards"></div>
+        <p class="empty-state" id="emptyState" hidden>条件に合う球場がありません。条件を少しゆるめて検索してください。</p>
+      </section>
+
+      <section class="guide" id="guide" aria-labelledby="guide-title">
+        <div class="section-heading">
+          <p class="eyebrow">Guide</p>
+          <h2 id="guide-title">予約前に見るポイント</h2>
+        </div>
+        <div class="guide-grid">
+          <article>
+            <h3>大会利用</h3>
+            <p>硬式対応、観客席、スコアボード、ベンチ設備の有無を優先して確認。</p>
+          </article>
+          <article>
+            <h3>平日練習</h3>
+            <p>ナイター、駅からの移動、駐車場、利用時間帯をセットで比較。</p>
+          </article>
+          <article>
+            <h3>遠征利用</h3>
+            <p>インターからの距離、周辺の宿泊・食事、複数面の確保しやすさが重要。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <div class="drawer" id="drawer" aria-hidden="true">
+      <button class="drawer-close" id="drawerClose" aria-label="詳細を閉じる">×</button>
+      <div id="drawerContent"></div>
+    </div>
+    <div class="overlay" id="overlay" hidden></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
